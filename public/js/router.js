@@ -33,6 +33,7 @@
     "home": "home.html",
     "login": "index.html",
     "chatbot": "chatbot.html",
+    "groupchat": "group-chat.html", // Rute baru untuk fitur grup chat
     "bot": "chatbot.html",
     "plotting": "plotting.html",
     "rotation": "plotting.html",
