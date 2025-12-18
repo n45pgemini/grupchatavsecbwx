@@ -9,6 +9,7 @@
 const PAGE_LOADERS = {
   login: () => import('./pages/login.js'),
   home: () => import('./pages/home.js'),
+  groupchat: () => import('./pages/group-chat.js'), // Penambahan modul grup chat
   ACP: () => import('./pages/ACP.js'),
   SIDS: () => import('./pages/SIDS.js'),
   boardingpass: () => import('./pages/boardingpass.js'),
