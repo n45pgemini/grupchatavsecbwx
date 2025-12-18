@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Geo</title>
+  <desc id="desc">Stylized location pin inside a circular map marker.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e2b4c" />
+    </linearGradient>
+    <linearGradient id="pin" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="24" fill="url(#bg)" />
+  <g transform="translate(64 64)">
+    <circle r="40" fill="rgba(255,255,255,0.12)" />
+    <path d="M0 -46c-17.1 0-31 13.9-31 31 0 19.6 23.8 41.2 28.3 45.1a4 4 0 0 0 5.3 0C7.1 26.2 31 4.6 31 -15c0-17.1-13.9-31-31-31zm0 46a15 15 0 1 1 0-30 15 15 0 0 1 0 30z" fill="url(#pin)" />
+    <circle r="11" fill="#0f172a" />
+    <path d="M-10 26c6.6 8.7 10 15.3 10 20 0-4.7 3.4-11.3 10-20" fill="#38bdf8" opacity="0.8" />
+  </g>
+</svg>

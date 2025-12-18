@@ -1,0 +1,11 @@
+{
+  "name": "avsec-bwx-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "npx serve public",
+    "dev": "npx serve public",
+    "build": "node scripts/sync-js.mjs"
+  }
+}

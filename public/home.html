@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Home</title>
+  <link rel="stylesheet" href="/styles/home.css" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/icons/favicon-64.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/icons/favicon-128.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/icons/favicon-256.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/favicon-512.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest" type="application/manifest+json">
+</head>
+<body>
+  <div class="aurora"></div>
+  <div class="grain"></div>
+
+  <div class="wrap" role="application">
+    <div class="page">
+      <!-- Greeting Card (tanggal jadi overline di dalam card) -->
+      <section class="greet-card" id="greetCard" role="button" aria-pressed="false">
+        <div class="greet-overline" id="dateBanner">-</div>
+
+        <div class="greet-text">
+          <div id="greet" class="greet-big">Selamat Pagi,</div>
+          <div id="name" class="name-big">Pengguna</div>
+        </div>
+
+        <!-- Profil/Logout slot -->
+        <div class="profile-slot" id="profileSlot">
+          <img id="avatar" class="avatar-large" alt="Foto pengguna" referrerpolicy="no-referrer">
+        </div>
+      </section>
+
+      <!-- Info pill -->
+      <section class="pill" id="tagline" aria-live="polite">
+        <span class="pill-dot" aria-hidden="true"></span>
+        <span id="taglineText">Siap bantu aktivitasmu hari ini ✨</span>
+      </section>
+
+      <!-- Apps grid -->
+      <main class="apps" id="apps" aria-label="Aplikasi">
+        <!-- Baris 1 -->
+        <a class="app is-disabled requires-duty" href="#" data-href="/chatbot.html" title="Chatbot" aria-disabled="true">
+          <div class="app-icon"><img src="/assets/chatbot.png" alt="Chatbot"></div>
+          <div class="app-name">Chatbot</div>
+        </a>
+        <a class="app" href="/fuel.html" title="Fuel">
+          <div class="app-icon"><img src="/assets/fuel.png" alt="Fuel"></div>
+          <div class="app-name">Fuel</div>
+        </a>
+        <a class="app" href="/boardingpass.html" title="Boarding Pass">
+          <div class="app-icon"><img src="/assets/boardingpass.png" alt="Boarding Pass"></div>
+          <div class="app-name">Boarding Pass</div>
+        </a>
+        <a class="app" href="/visit.html" title="ID Visitor">
+          <div class="app-icon"><img src="/assets/id-visitor.png" alt="ID Visitor"></div>
+          <div class="app-name">PAS Visitor</div>
+        </a>
+
+        <!-- Baris 2 -->
+        <a class="app is-disabled requires-duty" href="#" data-href="/random.html" title="Random Check" aria-disabled="true">
+          <div class="app-icon"><img src="/assets/random-check.png" alt="Random Check"></div>
+          <div class="app-name">Rand-Check</div>
+        </a>
+        <a class="app" href="/cuti.html" title="Permission">
+          <div class="app-icon"><img src="/assets/permission.png" alt="Permission"></div>
+          <div class="app-name">Permission</div>
+        </a>
+        <a class="app" href="/gate.html" title="Gate Access">
+          <div class="app-icon"><img src="/assets/gate-access.png" alt="Gate Access"></div>
+          <div class="app-name">Gate Access</div>
+        </a>
+        <a class="app" href="/gun.html" title="Gun Storage">
+          <div class="app-icon"><img src="/assets/gun-storage.png" alt="Gun Storage"></div>
+          <div class="app-name">Gun Storage</div>
+        </a>
+
+        <!-- Baris 3 (Logbook) -->
+        <a class="app is-disabled requires-duty" href="#" data-href="/lb_all.html?target=LB_CCTV" title="LB CCTV" aria-disabled="true">
+          <div class="app-icon"><img src="/assets/lb-pscp.png" alt="LB CCTV"></div>
+          <div class="app-name">LB CCTV</div>
+        </a>
+        <a class="app is-disabled requires-duty" href="#" data-href="/lb_all.html?target=LB_PSCP" title="LB PSCP" aria-disabled="true">
+          <div class="app-icon"><img src="/assets/lb-pscp.png" alt="LB PSCP"></div>
+          <div class="app-name">LB PSCP</div>
+        </a>
+        <a class="app is-disabled requires-duty" href="#" data-href="/lb_all.html?target=LB_HBSCP" title="LB HBSCP" aria-disabled="true">
+          <div class="app-icon"><img src="/assets/lb-pscp.png" alt="LB HBSCP"></div>
+          <div class="app-name">LB HBSCP</div>
+        </a>
+        <a class="app is-disabled requires-duty" href="#" data-href="/lb_all.html?target=LB_POS1" title="LB Patrol" aria-disabled="true">
+          <div class="app-icon"><img src="/assets/lb-pscp.png" alt="LB Patrol"></div>
+          <div class="app-name">LB Patrol</div>
+        </a>
+        
+        <!-- Baris 4 (Logbook) -->
+        <a class="app is-disabled requires-duty" href="#" data-href="/lb_all.html?target=LB_CARGO" title="LB Cargo" aria-disabled="true">
+          <div class="app-icon"><img src="/assets/lb-pscp.png" alt="LB Cargo"></div>
+          <div class="app-name">LB Cargo</div>
+        </a>
+        <a class="app is-disabled requires-duty" href="#" data-href="/lb_all.html?target=LB_ARRIVAL" title="LB Arrival" aria-disabled="true">
+          <div class="app-icon"><img src="/assets/lb-pscp.png" alt="LB Arrival"></div>
+          <div class="app-name">LB Arrival</div>
+        </a>
+        <a class="app is-disabled requires-duty" href="#" data-href="/lb_all.html?target=LB_MALAM" title="LB Malam" aria-disabled="true">
+          <div class="app-icon"><img src="/assets/lb-pscp.png" alt="LB Malam"></div>
+          <div class="app-name">LB Malam</div>
+        </a>
+        <a class="app is-disabled requires-duty" href="#" data-href="/ACP.html" title="Form ACP" aria-disabled="true">
+          <div class="app-icon"><img src="/assets/acp.png" alt="Form ACP"></div>
+          <div class="app-name">Form ACP</div>
+        </a>
+        <a class="app" href="/geotag.html" title="Geo Maps">
+          <div class="app-icon"><img src="/assets/geotag.png" alt="Geo Maps"></div>
+          <div class="app-name">Geo Maps</div>
+        </a>
+        <a class="app" href="/door.html" title="TOC Door">
+          <div class="app-icon"><img src="/assets/doorlock.png" alt="TOC Door"></div>
+          <div class="app-name">TOC Door</div>
+        </a>
+      </main>
+    </div>
+  </div>
+  
+  <!-- Dock bawah -->
+  <nav class="dock" aria-label="Menu bawah">
+    <div class="dock-inner">
+      <a class="dock-btn" href="/schedule.html">
+        <div class="app-icon"><img src="/assets/schedule.png" alt="Schedule"></div>
+        <span>Schedule</span>
+      </a>
+      <a class="dock-btn is-disabled requires-duty" href="#" data-href="/id.html" aria-disabled="true">
+        <div class="app-icon"><img src="/assets/id-check.png" alt="ID Check"></div>
+        <span>ID Check</span>
+      </a>
+      <a class="dock-btn is-disabled requires-duty" href="#" data-href="/kunci.html" aria-disabled="true">
+        <div class="app-icon"><img src="/assets/key-map.png" alt="Key Map"></div>
+        <span>Key Map</span>
+      </a>
+      <a class="dock-btn is-disabled requires-duty" href="#" data-href="/plotting.html" id="plottingBtn" aria-disabled="true">
+        <div class="app-icon"><img src="/assets/plotting.png" alt="Plotting"></div>
+        <span>Plotting</span>
+      </a>
+      <a class="dock-btn is-disabled requires-duty" href="#" data-href="/check.html" aria-disabled="true">
+        <div class="app-icon"><img src="/assets/daily-check.png" alt="Daily Check"></div>
+        <span>Daily Check</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Spinner lookup schedule -->
+  <div id="lookupOverlay">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Auth Guard: wajib login -->
+  <script type="module">
+    import { requireAuth } from "/js/auth-guard.js";
+    requireAuth({ loginPath: "/index.html", hideWhileChecking: true });
+  </script>
+
+  <!-- Script utama halaman -->
+  <script type="module" src="/js/pages/home.js"></script>
+  <script type="module" src="/js/offline.js"></script>
+</body>
+</html>

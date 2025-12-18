@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+  />
+  <title>Welcome & Login</title>
+  <link rel="stylesheet" href="/styles/login.css" />
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- ====== ICONS & MANIFEST ====== -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/icons/favicon-64.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/icons/favicon-128.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/icons/favicon-256.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/favicon-512.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest" type="application/manifest+json">
+  <meta name="theme-color" content="#000000">
+
+  <!-- PWA Support -->
+  <meta name="mobile-web-app-capable" content="yes"> <!-- standar baru -->
+  <meta name="apple-mobile-web-app-capable" content="yes"> <!-- untuk Safari lama -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Safari pinned tab -->
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#000000">
+
+  <!-- ====== OPEN GRAPH / SOCIAL ====== -->
+  <meta property="og:site_name" content="Avsec BWX App">
+  <meta property="og:title" content="Avsec BWX App">
+  <meta property="og:description" content="Aviation Security BWX Application">
+  <meta property="og:image" content="https://avsecbwxapp.online/icons/favicon-512.png">
+  <meta property="og:url" content="https://avsecbwxapp.online">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- 1) Router untuk handle deep-link dari 404.html -->
+  <script type="module" src="/js/router.js"></script>
+
+  <!-- 2) Auto-redirect kalau sudah login (skip saat logout) -->
+  <script type="module">
+    import { redirectIfAuthed } from "/js/auth-guard.js";
+    const params = new URLSearchParams(location.search);
+    if (params.get("logout") !== "1") {
+      redirectIfAuthed({ homePath: "home.html" });
+    }
+  </script>
+</head>
+<body class="blur-bg">
+  <main class="wrap">
+    <article class="card" aria-live="polite">
+      <!-- WELCOME -->
+      <section id="welcome" class="section active" role="region" aria-label="Welcome">
+        <div class="logo-wrap">
+          <img id="appLogo" src="/icons/favicon-192.png" alt="Logo Aplikasi" />
+        </div>
+        <h1 class="title">Selamat Datang 👋</h1>
+
+        <div class="cta">
+          <button id="goLoginBtn" class="btn">Masuk</button>
+        </div>
+      </section>
+
+      <!-- LOGIN -->
+      <section id="login" class="section" role="region" aria-label="Login">
+        <h1 class="title">Masuk</h1>
+        <p class="subtitle">Gunakan email & kata sandi terdaftar.</p>
+
+        <form id="loginForm" novalidate>
+          <div class="row">
+            <label for="email">Email</label>
+            <input id="email" type="email" inputmode="email" placeholder="nama@domain.com" autocomplete="username" required />
+          </div>
+
+          <div class="row">
+            <label for="password">Kata Sandi</label>
+            <div class="password-wrapper">
+              <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" minlength="6" required />
+              <span id="togglePassword" class="toggle-eye">👁️</span>
+            </div>
+          </div>
+
+          <button id="loginBtn" type="submit" class="btn">Masuk</button>
+
+          <p class="forgot-link">
+            <button type="button" id="forgotBtn" class="link-btn">Lupa Password?</button>
+          </p>
+        </form>
+
+        <div id="errBox" class="callout error" role="alert"></div>
+        <div id="okBox" class="callout ok"></div>
+      </section>
+
+      <footer class="footer">
+        © <span id="year"></span> — Create by Avsec BWX
+      </footer>
+    </article>
+  </main>
+
+  <!-- OPSIONAL: override logo default -->
+  <!-- <script>window.LOGO_URL = "https://avsecbwxapp.online/icons/favicon-192.png";</script> -->
+
+  <!-- Loading overlay -->
+  <div id="loadingOverlay" style="display:flex">
+    <div class="load-card">
+      <span class="icon spinner"></span>
+      <div class="texts" aria-hidden="true">
+        <div class="title"></div>
+        <div class="desc"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/pages/login.js"></script>
+  <script type="module" src="/js/offline.js"></script>
+  <script src="/js/back.js"></script>
+  <script>
+    if("serviceWorker" in navigator){
+      window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js"));
+    }
+  </script>
+</body>
+</html>
