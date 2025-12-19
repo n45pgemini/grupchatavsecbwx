@@ -1,19 +1,24 @@
 import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { getDatabase, ref, push, onChildAdded, serverTimestamp, query, limitToLast, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+import { getDatabase, ref, push, onChildAdded, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 import { requireAuth } from "/js/auth-guard.js";
 
-// Proteksi halaman
-requireAuth({ loginPath: "/index.html" });
+// Pastikan user login sebelum masuk ke halaman ini
+requireAuth({ loginPath: "/index.html", hideWhileChecking: true });
 
+// KONFIGURASI PERSIS SEPERTI YANG ANDA BERIKAN
 const firebaseConfig = {
   apiKey: "AIzaSyBc-kE-_q1yoENYECPTLC3EZf_GxBEwrWY",
   authDomain: "avsecbwx-4229c.firebaseapp.com",
+  databaseURL: "https://avsecbwx-4229c-default-rtdb.firebaseio.com",
   projectId: "avsecbwx-4229c",
+  storageBucket: "avsecbwx-4229c.firebasestorage.app",
+  messagingSenderId: "1029406629258",
   appId: "1:1029406629258:web:53e8f09585cd77823efc73",
-  databaseURL: "https://avsecbwx-4229c-default-rtdb.firebaseio.com"
+  measurementId: "G-P37F88HGFE"
 };
 
+// Inisialisasi Firebase
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
@@ -27,69 +32,57 @@ let currentUser = null;
 // Pantau status login
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log("✅ Chat: User login sebagai", user.email);
     currentUser = user;
-    initChat();
-  } else {
-    console.error("❌ Chat: User tidak login!");
+    console.log("Chat terhubung sebagai:", user.email);
+    loadMessages();
   }
 });
 
-function initChat() {
-  const chatRef = ref(db, 'group_chat');
+// Fungsi memuat pesan
+function loadMessages() {
+  const chatRef = query(ref(db, 'group_chat'), limitToLast(100));
   
-  // 🔍 CEK KONEKSI (DIAGNOSTIC)
-  const connectedRef = ref(db, ".info/connected");
-  onValue(connectedRef, (snap) => {
-    if (snap.val() === true) {
-      console.log("✅ Chat: Terhubung ke Firebase Database.");
-    } else {
-      console.warn("⚠️ Chat: Menunggu koneksi database...");
-    }
-  });
-
-  const chatQuery = query(chatRef, limitToLast(50));
-  
-  // Ambil pesan secara real-time
-  onChildAdded(chatQuery, (snapshot) => {
+  onChildAdded(chatRef, (snapshot) => {
     const data = snapshot.val();
-    console.log("📩 Pesan baru diterima dari database:", data);
-    renderMessage(data);
+    displayMessage(data);
   }, (error) => {
-    console.error("❌ Chat: Gagal memuat pesan!", error.message);
-    if (error.message.includes("permission_denied")) {
-        alert("Error: Izin Database ditolak! Cek Firebase Rules Anda.");
-    }
+    console.error("Gagal memuat database:", error);
+    alert("Koneksi Database Gagal! Periksa Firebase Rules Anda.\nError: " + error.message);
   });
 }
 
-function renderMessage(data) {
-  if (!data.text) return;
+// Fungsi menampilkan pesan di UI
+function displayMessage(data) {
+  if (!data || !data.text) return;
+
   const isMe = data.uid === currentUser?.uid;
   const msgDiv = document.createElement('div');
   msgDiv.className = `msg ${isMe ? 'sent' : 'received'}`;
   
-  const time = data.timestamp ? new Date(data.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--';
+  // Format waktu
+  const ts = data.timestamp ? new Date(data.timestamp) : new Date();
+  const timeStr = ts.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   msgDiv.innerHTML = `
-    ${!isMe ? `<span class="sender-name">${data.name || 'Anonim'}</span>` : ''}
+    ${!isMe ? `<span class="sender-name">${data.name || 'User'}</span>` : ''}
     <div class="text">${escapeHTML(data.text)}</div>
-    <span class="time">${time}</span>
+    <span class="time">${timeStr}</span>
   `;
   
   msgContainer.appendChild(msgDiv);
   msgContainer.scrollTop = msgContainer.scrollHeight;
 }
 
+// Fungsi kirim pesan
 chatForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const text = chatInput.value.trim();
   if (!text || !currentUser) return;
 
+  // Nama diambil dari tinydb_name yang diset di home.js
   const senderName = localStorage.getItem('tinydb_name') || currentUser.displayName || currentUser.email.split('@')[0];
 
   try {
-    console.log("📤 Mengirim pesan...");
     await push(ref(db, 'group_chat'), {
       uid: currentUser.uid,
       name: senderName,
@@ -97,13 +90,14 @@ chatForm.addEventListener('submit', async (e) => {
       timestamp: serverTimestamp()
     });
     chatInput.value = '';
-    console.log("✅ Pesan terkirim.");
+    chatInput.focus();
   } catch (err) {
-    console.error("❌ Chat: Gagal mengirim pesan!", err);
-    alert("Gagal mengirim pesan: " + err.message);
+    console.error("Gagal mengirim pesan:", err);
+    alert("Gagal mengirim! Pastikan Rules Firebase Anda sudah di-Publish.");
   }
 });
 
+// Keamanan input HTML
 function escapeHTML(str) {
   const p = document.createElement('p');
   p.textContent = str;
